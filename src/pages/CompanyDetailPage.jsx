@@ -3,7 +3,8 @@ import { useEffect, useState } from "react"
 import { supabase } from "../lib/supabaseClient"
 
 export default function CompanyDetailPage() {
-  const { id } = useParams()
+  const { uuid } = useParams()  // ✅ 여기 꼭 필요!
+
   const [company, setCompany] = useState(null)
 
   useEffect(() => {
@@ -11,7 +12,7 @@ export default function CompanyDetailPage() {
       const { data, error } = await supabase
         .from("emissions3")
         .select("*")
-        .eq("id", id)
+        .eq("uuid", uuid)  // ✅ useParams에서 가져온 uuid 사용
         .limit(1)
 
       if (error || !data || data.length === 0) {
@@ -23,7 +24,7 @@ export default function CompanyDetailPage() {
     }
 
     fetchCompany()
-  }, [id])
+  }, [uuid])
 
   if (!company) {
     return <div className="p-10 text-red-500">企業データを読み込めませんでした。</div>

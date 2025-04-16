@@ -10,7 +10,7 @@ export default function App() {
       <main className="flex-1">
         <Routes>
           <Route path="/" element={<DashboardPage />} />
-          <Route path="/company/:id" element={<CompanyDetailPage />} />
+          <Route path="/company/:uuid" element={<CompanyDetailPage />} />
         </Routes>
       </main>
     </div>
