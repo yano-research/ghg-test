@@ -8,6 +8,7 @@ export default function CompanyDetailPage() {
   const [govData, setGovData] = useState([])
   const [selfData, setSelfData] = useState([])
   const [activeTab, setActiveTab] = useState("gov")
+  const [selectedGovYear, setSelectedGovYear] = useState(2021)
 
   useEffect(() => {
     async function fetchData() {
@@ -41,7 +42,7 @@ export default function CompanyDetailPage() {
 
   return (
     <div className="p-10 space-y-8">
-      {/* 1행: 기업정보 */}
+      {/* 企業基本情報 */}
       <div className="bg-white rounded-xl shadow p-6 grid grid-cols-2 gap-4">
         <h2 className="text-lg font-bold col-span-2 mb-2">企業情報</h2>
         <div><span className="text-gray-500">事業者番号：</span>{company.company_number}</div>
@@ -54,51 +55,72 @@ export default function CompanyDetailPage() {
         <div><span className="text-gray-500">排出削減目標：</span>{company.goal}</div>
       </div>
 
-      {/* 2행: 탭 전환 */}
+      {/* データタブ */}
       <div className="bg-white rounded-xl shadow p-6">
         <div className="flex border-b mb-4">
           <button
             className={`px-4 py-2 font-semibold ${activeTab === "gov" ? "border-b-2 border-green-600 text-green-700" : "text-gray-500"}`}
             onClick={() => setActiveTab("gov")}
           >
-            政府データ (gov)
+            温対法データ
           </button>
           <button
             className={`ml-4 px-4 py-2 font-semibold ${activeTab === "self" ? "border-b-2 border-green-600 text-green-700" : "text-gray-500"}`}
             onClick={() => setActiveTab("self")}
           >
-            自己申告データ (self)
+            自己申告データ
           </button>
         </div>
 
+        {/* ----------------------------- govタブ ----------------------------- */}
         {activeTab === "gov" && (
           <>
-            <p className="text-sm text-gray-500 mb-4">※ 調査地域: 国内</p>
-            {govData.length === 0 ? (
+            <p className="text-sm text-gray-500 mb-2">※ 調査地域: 国内</p>
+
+            {/* 年度選択ボタン */}
+            <div className="flex gap-2 mb-4">
+              {[2019, 2020, 2021].map((year) => (
+                <button
+                  key={year}
+                  onClick={() => setSelectedGovYear(year)}
+                  className={`px-4 py-1 rounded-md border text-sm font-semibold ${
+                    selectedGovYear === year
+                      ? "bg-green-100 text-green-700 border-green-300"
+                      : "bg-white text-gray-600 border-gray-300"
+                  }`}
+                >
+                  {year}年
+                </button>
+              ))}
+            </div>
+
+            {/* 表示：選択された年度のScope1/2 */}
+            {govData.filter((row) => row.year === selectedGovYear && (row.scope === 1 || row.scope === 2)).length === 0 ? (
               <p className="text-sm text-gray-400">データがありません</p>
             ) : (
               <table className="w-full text-sm">
                 <thead>
                   <tr>
-                    <th className="text-left py-1">年度</th>
                     <th className="text-left py-1">スコープ</th>
                     <th className="text-right py-1">排出量</th>
                   </tr>
                 </thead>
                 <tbody>
-                  {govData.map((row, i) => (
-                    <tr key={i}>
-                      <td>{row.year}</td>
-                      <td>Scope {row.scope}</td>
-                      <td className="text-right">{row.total_emission?.toLocaleString()} t-CO₂</td>
-                    </tr>
-                  ))}
+                  {govData
+                    .filter((row) => row.year === selectedGovYear && (row.scope === 1 || row.scope === 2))
+                    .map((row, i) => (
+                      <tr key={i}>
+                        <td>Scope {row.scope}</td>
+                        <td className="text-right">{row.total_emission?.toLocaleString()} t-CO₂</td>
+                      </tr>
+                    ))}
                 </tbody>
               </table>
             )}
           </>
         )}
 
+        {/* ----------------------------- selfタブ ----------------------------- */}
         {activeTab === "self" && (
           <>
             <p className="text-sm text-gray-500 mb-4">※ 調査地域: {company.survey_area || "ー"}</p>
