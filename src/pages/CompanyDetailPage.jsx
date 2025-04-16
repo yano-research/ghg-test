@@ -43,17 +43,25 @@ export default function CompanyDetailPage() {
   return (
     <div className="p-10 space-y-8">
       {/* 企業基本情報 */}
-      <div className="bg-white rounded-xl shadow p-6 grid grid-cols-2 gap-4">
-        <h2 className="text-lg font-bold col-span-2 mb-2">企業情報</h2>
-        <div><span className="text-gray-500">事業者番号：</span>{company.company_number}</div>
+      <div className="bg-white rounded-xl shadow p-6 space-y-3">
+        <h2 className="text-lg font-bold text-green-700 mb-2">{company.name}</h2>
+
         <div><span className="text-gray-500">所属：</span>{company.affiliate}</div>
-        <div><span className="text-gray-500">工場：</span>{company.factory}</div>
-        <div><span className="text-gray-500">業種：</span>{company.industry} / {company.industry2} / {company.industry3} / {company.industry4}</div>
+        <div><span className="text-gray-500">業種：</span>{company.industry}</div>
         <div><span className="text-gray-500">地域：</span>{company.prefecture}</div>
-        <div><span className="text-gray-500">PLC：</span>{company.PLC}</div>
-        <div><span className="text-gray-500">時価総額：</span>{company.market_capitalization}</div>
-        <div><span className="text-gray-500">排出削減目標：</span>{company.goal}</div>
-      </div>
+        <div><span className="text-gray-500">PLC：</span>{company.PLC || "ー"}</div>
+        <div><span className="text-gray-500">時価総額：</span>{company.market_capitalization?.toLocaleString()} 億円</div>
+        <div><span className="text-gray-500">算定範囲：</span>{company.survey_area}</div>
+    </div>
+
+    {/* 감축 목표 카드 */}
+        <div className="bg-white rounded-xl shadow p-6">
+        <h3 className="text-md font-semibold text-green-700 mb-2">排出削減目標</h3>
+        <p className="text-sm text-gray-800 whitespace-pre-line">
+            {company.goal || "ー"}
+        </p>
+        </div>
+
 
       {/* データタブ */}
       <div className="bg-white rounded-xl shadow p-6">
