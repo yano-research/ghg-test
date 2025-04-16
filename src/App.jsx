@@ -1,23 +1,13 @@
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import DashboardPage from "./pages/DashboardPage";
-// import CompanyDetailPage from "./pages/CompanyDetailPage";
 import Sidebar from "./components/Sidebar";
+import DashboardPage from "./pages/DashboardPage";
 
-function App() {
+export default function App() {
   return (
-    <BrowserRouter>
-      <div className="flex">
-        <Sidebar />
-        <div className="flex-1 p-6">
-          <Routes>
-            <Route path="/" element={<DashboardPage />} />
-            {/* <Route path="/company/:id" element={<CompanyDetailPage />} /> */}
-          </Routes>
-        </div> 
-      </div>
-      
-    </BrowserRouter>
+    <div className="flex w-screen min-h-screen bg-[#f5f6fa]">
+      <Sidebar />
+      <main className="flex-1">
+        <DashboardPage />
+      </main>
+    </div>
   );
 }
-
-export default App;

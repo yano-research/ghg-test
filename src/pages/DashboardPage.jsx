@@ -1,23 +1,18 @@
-import { companies } from "../lib/dummyData";
-import { Link } from "react-router-dom";
+// import { companies } from "../lib/dummyData";
+// import { Link } from "react-router-dom";
+import TopBar from "../components/TopBar";
+import SummaryCards from "../components/SummaryCards";
+import IndustryTable from "../components/IndustryTable";
+import IndustryChart from "../components/IndustryChart";
 
 export default function DashboardPage() {
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-4">등록된 기업 리스트</h1>
-      <div className="grid gap-4">
-        {companies.map((company) => (
-          <Link
-            key={company.id}
-            to={`/company/${company.id}`}
-            className="block p-4 bg-white rounded shadow hover:bg-green-50"
-          >
-            <h2 className="text-lg font-semibold text-green-700">{company.name}</h2>
-            <p className="text-sm text-gray-600">
-              {company.industry} - {company.prefecture}
-            </p>
-          </Link>
-        ))}
+    <div className="w-full h-full px-8 py-6 space-y-6">
+      <TopBar />
+      <SummaryCards />
+      <div className="grid grid-cols-2 gap-6 items-stretch">
+        <IndustryTable />
+        <IndustryChart />
       </div>
     </div>
   );
