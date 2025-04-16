@@ -1,6 +1,7 @@
 import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { supabase } from "../lib/supabaseClient"
+import BarChart from "../components/BarChart"
 
 export default function CompanyDetailPage() {
   const { uuid } = useParams()
@@ -124,7 +125,10 @@ export default function CompanyDetailPage() {
                     ))}
                 </tbody>
               </table>
+
+              
             )}
+            
           </>
         )}
 
@@ -155,7 +159,9 @@ export default function CompanyDetailPage() {
                   ))}
                 </tbody>
               </table>
+              
             )}
+            
           </>
         )}
       </div>

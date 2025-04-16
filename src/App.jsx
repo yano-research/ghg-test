@@ -2,22 +2,21 @@ import { Routes, Route } from "react-router-dom"
 import Sidebar from "./components/Sidebar"
 import DashboardPage from "./pages/DashboardPage"
 import CompanyDetailPage from "./pages/CompanyDetailPage"
+import IndustryListPage from "./pages/IndustryListPage" // ✅ 추가
 
 export default function App() {
   return (
-    <div className="flex h-screen overflow-hidden"> {/* ✅ 화면 꽉 채움 */}
-      {/* Sidebar */}
-      <div className="w-64 flex-shrink-0 bg-white border-r border-gray-200">
+    <div className="flex h-screen overflow-hidden">
+      <div className="w-64 flex-shrink-0 bg-white border-r">
         <Sidebar />
       </div>
-
-      {/* Main Content */}
-      <div className="flex-1 overflow-auto bg-[#f5f6fa]"> {/* ✅ 세로 스크롤 */}
+      <main className="flex-1 overflow-auto bg-[#f5f6fa]">
         <Routes>
           <Route path="/" element={<DashboardPage />} />
           <Route path="/company/:uuid" element={<CompanyDetailPage />} />
+          <Route path="/industry" element={<IndustryListPage />} /> {/* ✅ 추가 */}
         </Routes>
-      </div>
+      </main>
     </div>
   )
 }
