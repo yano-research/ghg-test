@@ -64,7 +64,8 @@ export default function TopBar() {
   }
 
   return (
-    <div className="relative flex justify-between items-center mb-6 pb-4 border-b border-gray-300 bg-white px-8">
+    <div className="w-full bg-white border-b border-gray-200 shadow-sm py-4 px-8 flex items-center justify-between">
+      {/* 왼쪽: 검색창 */}
       <div className="w-1/3">
         <div className="relative">
           <input
@@ -74,7 +75,6 @@ export default function TopBar() {
             placeholder="企業名を入力（例：トヨタ自動車）"
             className="w-full border border-gray-300 rounded px-4 py-2 text-sm bg-white text-gray-900 placeholder-gray-400 shadow-sm"
           />
-          {/* 자동완성 리스트 */}
           {suggestions.length > 0 && (
             <ul className="absolute z-10 w-full bg-white border border-gray-300 rounded mt-1 shadow max-h-48 overflow-auto">
               {suggestions.map((company) => (
@@ -90,16 +90,24 @@ export default function TopBar() {
           )}
         </div>
       </div>
-      <button
-        onClick={handleSearch}
-        className="ml-4 bg-green-600 text-white px-4 py-2 rounded text-sm font-semibold"
-      >
-        検索
-      </button>
-      <button className="bg-green-600 text-white px-4 py-2 rounded text-sm font-semibold ml-4">
-        ログイン
-      </button>
-      {errorMsg && <p className="text-red-500 text-sm mt-2">{errorMsg}</p>}
+  
+      {/* 오른쪽 버튼들 */}
+      <div className="flex items-center space-x-4">
+        <button
+          onClick={handleSearch}
+          className="bg-green-600 text-white px-4 py-2 rounded text-sm font-semibold"
+        >
+          検索
+        </button>
+        <button className="bg-green-600 text-white px-4 py-2 rounded text-sm font-semibold">
+          ログイン
+        </button>
+      </div>
+  
+      {/* 오류 메시지 */}
+      {errorMsg && (
+        <p className="absolute left-8 bottom-[-1.5rem] text-red-500 text-sm">{errorMsg}</p>
+      )}
     </div>
   )
 }
