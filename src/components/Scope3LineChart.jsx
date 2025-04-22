@@ -31,27 +31,46 @@ export default function Scope3LineChart({ companyNumber }) {
         return
       }
 
-      const scope3Data = data
-        .filter((row) => row.total_emission != null)
-        .sort((a, b) => b.year - a.year) // 최신순
-        .slice(0, 5)
-        .sort((a, b) => a.year - b.year) // 다시 오름차순
+      // ✅ 연도별 배출량 합산
+      const summedData = {}
+      data.forEach((row) => {
+        if (row.total_emission != null) {
+          if (!summedData[row.year]) {
+            summedData[row.year] = 0
+          }
+          summedData[row.year] += row.total_emission
+        }
+      })
 
-      if (scope3Data.length === 0) {
+      // ✅ 최신순으로 정렬 후 최대 5개
+      const sortedYears = Object.keys(summedData)
+        .map((year) => parseInt(year))
+        .sort((a, b) => b - a)
+        .slice(0, 5)
+        .sort((a, b) => a - b)
+
+      const finalData = sortedYears.map((year) => ({
+        year,
+        total: summedData[year],
+      }))
+
+      if (finalData.length === 0) {
         setChartData(null)
         return
       }
 
       setChartData({
-        labels: scope3Data.map((row) => `${row.year}年`),
+        labels: finalData.map((row) => `${row.year}年`),
         datasets: [
           {
             label: "Scope 3 排出量",
-            data: scope3Data.map((row) => row.total_emission),
+            data: finalData.map((row) => Math.round(row.total)), // 소수점 제거
             borderColor: "#22c55e",
             backgroundColor: "#86efac",
             fill: false,
             tension: 0.3,
+            pointRadius: 4,
+            pointHoverRadius: 6,
           },
         ],
       })
@@ -60,19 +79,37 @@ export default function Scope3LineChart({ companyNumber }) {
     fetchData()
   }, [companyNumber])
 
-  if (!chartData) {
+  if (!chartData || chartData.labels.length < 2) {
     return (
       <div className="bg-white rounded-xl shadow p-6 flex items-center justify-center h-[250px]">
-        <p className="text-sm text-gray-400">📉 データがありません</p>
+        <p className="text-sm text-gray-400">
+          ⚠️ 比較できるデータが1件のため、グラフは表示されません
+        </p>
       </div>
     )
   }
+  
 
   return (
     <div className="bg-white rounded-xl shadow p-6">
       <h2 className="text-lg font-semibold text-gray-800 mb-4">Scope 3 排出量（t-CO₂）</h2>
       <div className="h-64">
-        <Line data={chartData} options={{ responsive: true, plugins: { legend: { display: true } } }} />
+        <Line
+          data={chartData}
+          options={{
+            responsive: true,
+            plugins: {
+              legend: { display: true },
+            },
+            scales: {
+              y: {
+                ticks: {
+                  stepSize: 50000,
+                },
+              },
+            },
+          }}
+        />
       </div>
     </div>
   )
