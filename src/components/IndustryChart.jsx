@@ -83,7 +83,7 @@ export default function IndustryChart() {
   return (
     <div className="bg-white rounded-xl shadow p-6 h-full">
       <h2 className="text-lg font-semibold text-gray-800 mb-4">
-        平均GHG排出量（業種別）
+        2021年度：平均GHG排出量（業種別）
         <p className="text-sm text-gray-400">上位6つの業種</p>
       </h2>
       

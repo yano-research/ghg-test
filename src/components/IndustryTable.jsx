@@ -9,6 +9,9 @@ export default function IndustryTable() {
       const { data, error } = await supabase
         .from("emissions3")
         .select("industry, total_emission")
+        .eq("year", 2021)
+        .eq("source", "gov")  // 필요하다면 source 제한도 함께
+
       
       if (error) {
         console.error("Supabase fetch error:", error)
@@ -46,7 +49,7 @@ export default function IndustryTable() {
   return (
     <div className="bg-white rounded-xl shadow p-6 h-full">
       <h2 className="text-lg font-semibold text-gray-800 mb-2">業種別 平均GHG排出量</h2>
-      <p className="text-sm text-gray-500 mb-4">※ 2022年度のデータに基づく</p>
+      <p className="text-sm text-gray-500 mb-4">※ 2021年度のデータに基づく</p>
       <table className="w-full text-sm">
         <thead className="border-b">
           <tr>
