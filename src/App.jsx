@@ -2,7 +2,9 @@ import { Routes, Route } from "react-router-dom"
 import Sidebar from "./components/Sidebar"
 import DashboardPage from "./pages/DashboardPage"
 import CompanyDetailPage from "./pages/CompanyDetailPage"
-import IndustryListPage from "./pages/IndustryListPage" // ✅ 추가
+import IndustryListPage from "./pages/IndustryListPage"
+import LoginPage from "./pages/LoginPage"
+import ProtectedRoute from "./components/ProtectedRoute"
 
 export default function App() {
   return (
@@ -12,6 +14,7 @@ export default function App() {
       </div>
       <main className="flex-1 overflow-auto bg-[#f5f6fa]">
         <Routes>
+        <Route path="/login" element={<LoginPage />} />
           <Route path="/" element={<DashboardPage />} />
           <Route path="/company/:uuid" element={<CompanyDetailPage />} />
           <Route path="/industry" element={<IndustryListPage />} /> {/* ✅ 추가 */}

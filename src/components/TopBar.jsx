@@ -99,7 +99,10 @@ export default function TopBar() {
         >
           検索
         </button>
-        <button className="bg-green-600 text-white px-4 py-2 rounded text-sm font-semibold">
+        <button
+          className="bg-green-600 text-white px-4 py-2 rounded text-sm font-semibold ml-4"
+          onClick={() => navigate("/login")}
+        >
           ログイン
         </button>
       </div>
