@@ -76,8 +76,11 @@ export default function CompanyDetailPage() {
       </div>
       <div>
         <span className="text-gray-500">業種：</span>
-        {company.industry}
+        {[company.industry, company.industry2, company.industry3]
+          .filter(Boolean)
+          .join(", ")}
       </div>
+
       <div>
         <span className="text-gray-500">地域：</span>
         {company.prefecture}
@@ -156,7 +159,8 @@ export default function CompanyDetailPage() {
                     return row ? (
                       <tr key={scope} className="hover:bg-gray-50 transition-colors border-b border-gray-100">
                         <td className="py-2 px-2 font-medium">Scope {scope}</td>
-                        <td className="py-2 px-2 text-right font-semibold text-green-700">{row.total_emission.toLocaleString()} t-CO₂</td>
+                        <td className="py-2 px-2 text-right font-semibold text-green-700">{Math.round(row.total_emission).toLocaleString()} 千t-CO₂
+                        </td>
                       </tr>
                     ) : null
                   })}
@@ -208,7 +212,7 @@ export default function CompanyDetailPage() {
           {scope === 2 && row.s2_base ? ` (${row.s2_base})` : ""}
         </td>
         <td className="py-2 px-2 text-right font-semibold text-green-700">
-          {row.total_emission.toLocaleString()} t-CO₂
+        {Math.round(row.total_emission).toLocaleString()} 千t-CO₂
         </td>
       </tr>
     ) : null;
