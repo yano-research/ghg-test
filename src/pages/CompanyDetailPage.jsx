@@ -191,16 +191,45 @@ export default function CompanyDetailPage() {
                   </tr>
                 </thead>
                 <tbody className="text-gray-900">
-                  {[1, 2].map((scope) => {
-                    const row = selfData.find((r) => r.year === selectedSelfYear && r.scope === scope && r.total_emission != null)
-                    return row ? (
-                      <tr key={scope} className="hover:bg-gray-50 transition-colors border-b border-gray-100">
-                        <td className="py-2 px-2 font-medium">Scope {scope}{scope === 2 && row.s2_base ? ` (${row.s2_base})` : ""}</td>
-                        <td className="py-2 px-2 text-right font-semibold text-green-700">{row.total_emission.toLocaleString()} t-CO₂</td>
-                      </tr>
-                    ) : null
-                  })}
-                </tbody>
+  {[1, 2, 3].map((scope) => {
+    const row = selfData.find(
+      (r) =>
+        r.year === selectedSelfYear &&
+        r.scope === scope &&
+        r.total_emission != null
+    );
+    return row ? (
+      <tr
+        key={scope}
+        className="hover:bg-gray-50 transition-colors border-b border-gray-100"
+      >
+        <td className="py-2 px-2 font-medium">
+          Scope {scope}
+          {scope === 2 && row.s2_base ? ` (${row.s2_base})` : ""}
+        </td>
+        <td className="py-2 px-2 text-right font-semibold text-green-700">
+          {row.total_emission.toLocaleString()} t-CO₂
+        </td>
+      </tr>
+    ) : null;
+  })}
+
+  {/* Scope 3 데이터 없을 경우 메시지 */}
+  {!selfData.find(
+    (r) =>
+      r.year === selectedSelfYear &&
+      r.scope === 3 &&
+      r.total_emission != null
+  ) && (
+    <tr className="text-gray-500 text-sm italic">
+      <td className="py-2 px-2" colSpan={2}>
+        Scope 3データはありません
+      </td>
+    </tr>
+  )}
+</tbody>
+
+
               </table>
             </>
           )}
