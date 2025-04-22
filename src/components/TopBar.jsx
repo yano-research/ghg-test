@@ -93,12 +93,12 @@ export default function TopBar() {
   
       {/* 오른쪽 버튼들 */}
       <div className="flex items-center space-x-4">
-        <button
+        {/* <button
           onClick={handleSearch}
           className="bg-green-600 text-white px-4 py-2 rounded text-sm font-semibold"
         >
           検索
-        </button>
+        </button> */}
         <button
           className="bg-green-600 text-white px-4 py-2 rounded text-sm font-semibold ml-4"
           onClick={() => navigate("/login")}

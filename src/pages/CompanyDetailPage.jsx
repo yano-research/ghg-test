@@ -1,6 +1,8 @@
 import { useParams, useNavigate } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { supabase } from "../lib/supabaseClient"
+import Scope3LineChart from "../components/Scope3LineChart"
+
 
 export default function CompanyDetailPage() {
   const { uuid } = useParams()
@@ -168,8 +170,9 @@ export default function CompanyDetailPage() {
               <p className="text-sm text-gray-500 mb-2">※ 調査地域: {company.survey_area || "ー"}</p>
               <div className="flex gap-2 mb-4">
                 {[...new Set(selfData.filter(row => row.total_emission != null).map(row => row.year))]
-                  .sort((a, b) => a - b)
-                  .slice(-5)
+                  .sort((a, b) => b - a) // 최신순
+                  .slice(0, 4)           // 최대 4개
+                  .sort((a, b) => a - b) // 다시 오름차순 정렬해서 보기 좋게
                   .map((year) => (
                     <button
                       key={year}
@@ -203,9 +206,10 @@ export default function CompanyDetailPage() {
           )}
         </div>
 
-        <div className="bg-white rounded-xl shadow p-6 flex items-center justify-center min-h-[250px]">
-          <p className="text-sm text-gray-400">📊 グラフがここに入る予定です</p>
-        </div>
+          {/* graph section */}
+        <Scope3LineChart companyNumber={company.company_number} />
+
+        
       </div>
     </div>
   )
