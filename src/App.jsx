@@ -5,6 +5,8 @@ import CompanyDetailPage from "./pages/CompanyDetailPage"
 import IndustryListPage from "./pages/IndustryListPage"
 import LoginPage from "./pages/LoginPage"
 import ProtectedRoute from "./components/ProtectedRoute"
+import CategoryComparisonPage from "./pages/CategoryComparisonPage"
+
 
 export default function App() {
   return (
@@ -18,6 +20,7 @@ export default function App() {
           <Route path="/" element={<DashboardPage />} />
           <Route path="/company/:uuid" element={<CompanyDetailPage />} />
           <Route path="/industry" element={<IndustryListPage />} /> {/* ✅ 추가 */}
+          <Route path="/category-comparison" element={<CategoryComparisonPage />} />
         </Routes>
       </main>
     </div>

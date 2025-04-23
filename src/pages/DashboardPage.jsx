@@ -4,7 +4,6 @@ import TopBar from "../components/TopBar";
 import SummaryCards from "../components/SummaryCards";
 import IndustryTable from "../components/IndustryTable";
 import IndustryChart from "../components/IndustryChart";
-import Scope3CategoryChart from "../components/Scope3CategoryChart";
 import Footer from "../components/Footer";
 
 export default function DashboardPage() {
@@ -16,10 +15,9 @@ export default function DashboardPage() {
         <IndustryTable />
         <IndustryChart />
       </div>
-      <Scope3CategoryChart />
-      <div className="-mx-8">
+
         <Footer />
-      </div>
+
     </div>
   );
 }
