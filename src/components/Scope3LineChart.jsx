@@ -83,7 +83,7 @@ export default function Scope3LineChart({ companyNumber }) {
     return (
       <div className="bg-white rounded-xl shadow p-6 flex items-center justify-center h-[250px]">
         <p className="text-sm text-gray-400">
-          ⚠️ 比較できるデータが1件のため、グラフは表示されません
+          ⚠️ 比較できるデータがありません。
         </p>
       </div>
     )

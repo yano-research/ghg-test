@@ -54,7 +54,7 @@ export default function IndustryTable() {
         <thead className="border-b">
           <tr>
             <th className="text-left py-2">業種</th>
-            <th className="text-right py-2">平均排出量（tCO₂）</th>
+            <th className="text-right py-2">平均排出量（千tCO₂）</th>
           </tr>
         </thead>
         <tbody>
