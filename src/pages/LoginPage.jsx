@@ -14,7 +14,8 @@ export default function LoginPage() {
     if (error) {
       setError("ログインに失敗しました")
     } else {
-      navigate("/") // 로그인 성공 → 대시보드로
+      alert("ログイン成功！")
+      navigate("/") // 로그인 성공 후 대시보드로 이동
     }
   }
 

@@ -16,7 +16,7 @@ export default function DashboardPage() {
         <IndustryChart />
       </div>
 
-        <Footer />
+
 
     </div>
   );
